@@ -182,7 +182,5 @@ case class WriteToLatMap[T <: Lattice](inputRegs: Array[Int],
   def go(evalContext: EvalContext) = {
     outputLatMap.put(inputRegs.map(evalContext.keyRegs(_)),
       evalContext.latRegs(inputLatReg - 1000).asInstanceOf[outputLatMap.lattice.Elem])
-    println(s"Writing ${inputRegs.mkString(" ")} ->" +
-      s" ${evalContext.latRegs(inputLatReg - 1000).asInstanceOf[outputLatMap.lattice.Elem]}")
   }
 }

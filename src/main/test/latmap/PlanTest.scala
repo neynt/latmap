@@ -17,6 +17,7 @@ class PlanTest extends FunSuite {
     latMap.put(Array("y", "z"), lattice.Dst(6))
     latMap.put(Array("z", "a"), lattice.Dst(3))
     latMap.put(Array("y", "a"), lattice.Dst(4))
+    latMap.flushWrites()
 
     val step0 = IndexScan(index, mergeLat = false, Array(0, 1), Array(0, 1), 1000)
     val step1 = FilterFn1(0, _.asInstanceOf[String].startsWith("z"))
@@ -34,5 +35,6 @@ class PlanTest extends FunSuite {
 
     step0.go(evalContext)
     outputLatMap.flushWrites()
+    assert(outputLatMap.get(Array(1, 3)) == lattice.Dst(3))
   }
 }
